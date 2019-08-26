@@ -32,6 +32,7 @@ impl event::EventHandler for GameState {
 
     fn update(&mut self, ctx:&mut Context) -> GameResult<()> {
         if keyboard::is_key_pressed(ctx, event::KeyCode::Down) {
+            self.time_counter = 0;
             self.pit.move_piece_down();
         }
         self.time_counter += timer::delta(ctx).as_millis();
@@ -65,6 +66,9 @@ impl event::EventHandler for GameState {
         }
         if keycode == event::KeyCode::Left {
             self.pit.move_piece_left();
+        }
+        if keycode == event::KeyCode::Up {
+            self.pit.rotate_piece();
         }
         if keycode == event::KeyCode::Escape || keycode == event::KeyCode::Q {
             event::quit(ctx);
